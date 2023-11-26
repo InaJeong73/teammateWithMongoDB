@@ -1,0 +1,12 @@
+
+{
+  "name":"learn-mongoose",
+  "version":"0.01",
+  "description":"몽구스를 배우자",
+  "main":"app.js",
+  "scripts":{
+   "start":"nodemon app"
+  },
+  "author":"ZeroCho",
+  "license":"MIT"
+}
