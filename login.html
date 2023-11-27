@@ -1,0 +1,117 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      display: inline-block;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 3px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 1px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #333;
+      border: 1px solid #000;
+      padding: 3px 15px;
+      color: #000;
+      background-color: #fff;
+      border-radius: 5px;
+    }
+
+    a:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <h2>Teammate</h2>
+  <form id="loginForm" action="/" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit">로그인</button>
+  </form>
+  <!-- 추가: 실패 메시지를 표시할 엘리먼트 -->
+  <p id="errorMessage" style="color: red;"></p>
+  <a href="/register">회원가입하러가기</a>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Ajax 요청
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.onreadystatechange = function () {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.status === 200) {
+      // 로그인 성공
+      const response = JSON.parse(xhr.responseText);
+      console.log(response);
+      window.location.href = '/main';
+    } else if (xhr.status === 401) {
+      // 로그인 실패
+      const errorMessage = "아이디 또는 비밀번호를 다시 확인하세요";
+      console.log(errorMessage); // 확인을 위한 추가 로그
+      document.getElementById('errorMessage').textContent = errorMessage;
+    }
+  }
+};
+
+      const data = JSON.stringify({ email, password });
+      xhr.send(data);
+    });
+  </script>
+</body>
+</html>

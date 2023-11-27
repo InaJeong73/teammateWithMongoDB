@@ -1,22 +1,26 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const connect = require('./schemas/connect');
-const authRoutes = require('./routes/auth.js');
+const bodyParser = require('body-parser');
+const registerRoutes = require('./routes/register.js');
+const loginRoutes = require('./routes/login.js');
 const profileRoutes = require('./routes/profile.js');
 const teamPostRoutes = require('./routes/teampost.js');
 const userRoutes = require('./routes/user.js');
+const mainRoutes= require('./routes/main.js');
+
 
 const app = express();
 app.set('port', process.env.PORT || 3002);
 
 // Middleware and routing setup
-app.use(bodyParser.urlencoded({ extended: true })); // URL-encoded 데이터 파싱을 위한 설정
-app.use(bodyParser.json());  // <-- Place body-parser here
-app.use('/auth', authRoutes);
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.json());  
+app.use('/', loginRoutes);
+app.use('/register', registerRoutes);
 app.use('/profile', profileRoutes);
 app.use('/teampost', teamPostRoutes);
 app.use('/user', userRoutes);
-
+app.use('/main', mainRoutes);
 connect();
 
 // ...

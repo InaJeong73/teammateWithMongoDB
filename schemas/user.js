@@ -11,22 +11,33 @@ const userSchema=new Schema({
         required: true,
         unique: false,
     },
+    phoneNumber:{
+        type:String,
+        required: true,
+        unique: true,
+    },
     email:{
         type:String,
         required: true,
         unique: true,
     },
-    major:{
-        type:String,
+    password:{
+        type: String,
         required: true,
-        unique: false,
+        unique: true,
     },
     university:{
         type:String,
         required: true,
         unique: false,
+    },  
+     major:{
+        type:String,
+        required: true,
+        unique: false,
     },
-    interest: String,
+
+    experience: String,
 });
 
 module.exports=mongoose.model('User',userSchema);
